@@ -1,10 +1,14 @@
 import json
 import requests
+from datetime import date
+
 
 us_location_interventions = {}
 
 locations_url = "https://covid19.healthdata.org/api/metadata/location?v=7"
 locations_response = requests.get(locations_url)
+
+date = date.today().strftime("%Y%m%d")
 
 #print(locations_response.text)
 
@@ -26,7 +30,7 @@ for loc in us_locations:
 
     us_location_interventions[loc['local_id']] = intervention_json
 
-f = open("us_location_interventions.json","w")
+f = open("us_location_interventions-" + date + ".json","w")
 f.write(json.dumps(us_location_interventions))
 f.close()
 
